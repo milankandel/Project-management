@@ -1,0 +1,51 @@
+<div th:replace="shared/header"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title"></h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                        
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name </th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="record:${records}">
+                            <td th:text="${record.id}"></td>
+                           <td th:text="${record.firstName}"></td>
+                            <td th:text="${record.lastName}"></td> 
+                             <td th:text="${record.address}"></td> 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col -->
+</div>
+
+
+<div th:replace="shared/footer"></div>
