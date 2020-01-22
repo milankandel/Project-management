@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/employee")
 
 public class EmployeeController extends 
-        CrudController<Employees>{
+        CrudController<Employees,Integer>{
     
     public EmployeeController(){
         

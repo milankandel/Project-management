@@ -1,0 +1,32 @@
+  
+
+<div class="modal fade" id="modal-list-emp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assigned Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <table class="table table-bordered">                    
+                        <tbody>
+                            <tr th:each="employee:${employees}">                                                       
+                                <td id="emp-td">
+                                    <a id="empList"  href="javascript:void(0)" 
+                                       class="btn btn-default btn-xs"
+                                       th:text="${employee.firstName}+' '+${employee.lastName}"></a>                                                               
+                                </td>                                                 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

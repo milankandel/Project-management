@@ -6,12 +6,18 @@
 package com.milan.app.entity;
 
 
-import javax.persistence.Basic;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -21,48 +27,57 @@ import javax.validation.constraints.NotNull;
 @Table(name = "project_employee")
 public class ProjectEmployee  {
 
-    private static final long serialVersionUID = 1L;
+  
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "project_id")
-    private Integer projectId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "employee_id")
-    private int employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-    public ProjectEmployee() {
+    @ManyToOne
+    @JoinColumn(name = "project_id",referencedColumnName = "id")
+    private Projects project;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employees employee;
+
+    @Column(name = "assigned_date", nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date assignedDate;
+
+    public int getId() {
+        return id;
     }
 
-    public ProjectEmployee(Integer projectId) {
-        this.projectId = projectId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public ProjectEmployee(Integer projectId, int employeeId) {
-        this.projectId = projectId;
-        this.employeeId = employeeId;
+    public Projects getProject() {
+        return project;
     }
 
-    public Integer getProjectId() {
-        return projectId;
+    public void setProject(Projects project) {
+        this.project = project;
     }
 
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
+    public Employees getEmployee() {
+        return employee;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public void setEmployee(Employees employee) {
+        this.employee = employee;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public Date getAssignedDate() {
+        return assignedDate;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
     }
+
 
     
     

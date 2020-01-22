@@ -1,0 +1,257 @@
+<div th:replace="shared/header"></div>
+
+<div class="col-md-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Project Detail</h3>
+
+            <div class="box-tools pull-right">
+                <a class="btn btn-primary btn-xs projects-detail-btn" type="button">
+                    <span class="glyphicon glyphicon-plus"></span>        
+                </a>
+            </div>
+        </div>
+      
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <div id="demo" class="collapse">
+                <div class="box-body">
+                    <dl>
+                        <dt>Project Title:</dt>
+                        <dd>
+                            <span th:text="${projects.name}"></span> 
+                        </dd>
+                        <dt>Employee Assigned</dt>
+                          <dd>
+                            <ol th:each="proemp:${projectemployee}">
+                                <li th:text="${proemp.employee.firstName}+' '+${proemp.employee.lastName}"></li>
+                            </ol>
+                        </dd>
+                        <dt>Project Budget</dt>
+                        <dd th:text="${projects.budget}"></dd>
+                       <dt>Status</dt>
+                        <dd th:text="${projects.status.statusName}"></dd>
+                        <dt>Deadline</dt> 
+                        <dd th:text="${projects.deadline}"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <ul class="mailbox-attachments clearfix">
+                <li>
+                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                    <div class="mailbox-attachment-info">
+                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                        <span class="mailbox-attachment-size">
+                            1,245 KB
+                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
+
+                    <div class="mailbox-attachment-info">
+                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
+                        <span class="mailbox-attachment-size">
+                            1,245 KB
+                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                    </div>
+                </li>                
+
+            </ul>
+        </div>
+        <!-- /.box-footer -->
+        <div class="box-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
+                <button type="button" class="btn btn-default"><i class="fa fa-share"></i> Forward</button>
+            </div>
+            <button type="button" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
+            <button type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+    <!-- /. box -->
+</div>
+<!--=========-->
+<div class="col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tasks" data-toggle="tab">Tasks</a></li>
+            <li><a href="#employee" data-toggle="tab">Employee</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="active tab-pane" id="tasks">
+                <div id="tab1" class="tab-pane fade active in"> <br>                    
+                    <a class="btn btn-primary btn-xs add-task-btn" type="button">Add Task
+                        <span class="glyphicon glyphicon-plus"></span>        
+                    </a>   
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">Add Task</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form" method="post" action="">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" name="title" class="form-control"  placeholder="Enter title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <textarea type="text" name="description" class="form-control"  placeholder="Enter description"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Deadline</label>
+                                                <input type="datetime" name="deadline" class="form-control" placeholder="YYYY-MM-DD"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="box-footer">
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <a href="#" class="btn btn-danger">Back</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+
+            <div class="tab-pane" id="employee">                             
+                <div class="box">
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th> 
+                                    <th>Salary</th>
+                                    <th>Task Assigned</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="proemp:${projectemployee}" >
+                                    <td th:text="${proemp.id}"></td>
+                                    <td th:text="${proemp.employee.firstName}+' '+${proemp.employee.lastName}"></td>
+                                    <td th:text="${proemp.employee.salary}"></td>
+                                    <td>abc</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane" id="settings">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+    <!-- /.nav-tabs-custom -->
+</div>
+
+<!--============-->
+
+
+<div th:replace="shared/footer"></div>
+ <script>
+    $(document).ready(function(){
+    $('.projects-detail-btn').on('click',function(){
+    var $this=$(this);
+    var $span=$(this).find('span');
+    $('.collapse').show(1000);
+    if($span.hasClass('glyphicon-plus')){
+    $span.removeClass('glyphicon-plus')
+    .addClass('glyphicon-minus');           
+    }else{
+    $('.collapse').hide('slow');
+    $span.removeClass('glyphicon-minus')
+    .addClass('glyphicon-plus');
+    }
+    });
+    $(document).on('click','.add-task-btn',function(){
+    $('#exampleModal').modal();
+    });
+
+    });
+</script>
+
+<style>   
+
+</style>
+
+                      

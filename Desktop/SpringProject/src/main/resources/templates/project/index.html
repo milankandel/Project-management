@@ -2,5 +2,122 @@
 
 
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <a th:href="@{'/'+${uri}+'/create/'}" class="btn btn-primary btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span> 
+                    </a> 
+                </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+
+                        <tr>
+                            <th>Id</th>
+                            <th>Project Name</th>
+                            <th>Budget </th>
+                            <th>Member</th>
+                            <th>Deadline</th>
+
+                            <th>Task </th>
+                            <th>client</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="project :${records}">
+                            <td th:text="${project.id}"></td>
+                            <td th:text="${project.name}"></td> 
+                            <td th:text="${project.budget}"></td>
+                            <td style="text-align: center">
+                                <a  href="javascript:void(0)" class="list-emp-btn btn btn-default btn-xs"
+                                    th:text="${project.employeeList.size()}"></a>
+                          <!--      <button type="button" th:rel="${project.id}" data-toggle="modal" data-target="#modal-addemp" class="add-emp-btn btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button> -->
+                                 <a  href="javascript:void(0)"   th:rel="${project.id}" data-toggle="modal" data-target="#modal-addemp"  class="add-emp-btn btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-plus"></span>     
+
+                            </td>
+                            <td th:text="${#dates.format(project.deadline, 'yyyy-MM-dd')}"></td>
+                            <td th:align="center">
+                                <a  href="javascript:void(0)" class="add-btn btn btn-default btn-xs"
+                                    th:text="${project.tasks.size()}"></a> </td>
+
+                            <td
+
+                                th:text="${project.client.firstName}+' '+${project.client.lastName}">
+                            </td>
+
+                            <td th:style="'background:'+${project.status
+                                .statusColor}"></td> 
+                            <td>
+
+                                <a href="javascript:void(0)" type="hidden"  class="edit-modal-btn btn btn-success btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a th:href="@{'/'+${uri}+'/delete/'+${project.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                <a th:href="@{'/'+${uri}+'/detail/'+${project.id}}"  class="btn btn-primary btn-xs">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+
+                            </td>  
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col -->
+</div>
+<div th:replace= "project/projectemployeemodal"/> 
 
 <div th:replace="shared/footer"></div>
+
+<script>
+   $(document).ready(function(){
+    $('.add-emp-btn').on('click',function(){
+    var $id=$(this).attr('rel');
+    $('#modal-project-id').val($id);
+    $('#modal-addemp').modal();
+    });
+
+    $('#add-employee-form').on('submit',function(){
+    $.post('/projects/employees/add',$(this).serialize(),function(data){
+    console.log(data);
+    $('#modal-addemp').modal('hide');
+    });
+    return false;
+    });
+   };
+
+
+</script>
+<style>
+
+</style>
+

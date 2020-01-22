@@ -5,6 +5,8 @@
  */
 package com.milan.app.repository;
 
+import com.milan.app.entity.ProjectEmployee;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author ACER
  */
 @Repository
-public interface ProjectEmployee extends JpaRepository<ProjectEmployee, Integer>{
-    //List<ProjectEmployee> findByProjectId(int id);
+public interface ProjectEmployeeRepository extends JpaRepository<ProjectEmployee,Integer>{
+    List<ProjectEmployee> findByProjectId(int id);
 
 }

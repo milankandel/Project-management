@@ -1,0 +1,33 @@
+<div class="modal fade" id="modal-addemp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Add Employees</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="add-employee-form" method="post" action="">
+                    <div class="box-body">  
+
+                        <div class="form-group">
+                            <label>Add Employees</label>
+                            <select name="employeeList" class="form-control" multiple="multiple" style="height:150px">
+                                <option th:each="employee:${employee}"  th:value="${employee.id}" th:text="${employee.firstName}+' '+${employee.lastName}"></option> 
+                            </select>
+                        </div>                                                
+                    </div>
+                    <div class="box-footer">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="hidden" name="projectId" id="modal-project-id">
+                        <button type="submit" class="btn btn-success">Add</button>
+                        <a href="/project" class="btn btn-danger">Close</a>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

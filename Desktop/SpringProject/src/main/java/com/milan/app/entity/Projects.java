@@ -20,8 +20,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,10 +51,10 @@ public class Projects implements Serializable {
     private Date deadline;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
-    private Double budget;
+    private Long  budget;
 
     @JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = {
-        @JoinColumn(name = "employee_id")})
+    @JoinColumn(name = "employee_id")})
     @ManyToMany()
     private List<Employees> employeeList = new ArrayList<>();
 
@@ -153,11 +151,11 @@ public class Projects implements Serializable {
         this.deadline = deadline;
     }
 
-    public Double getBudget() {
+    public Long getBudget() {
         return budget;
     }
 
-    public void setBudget(Double budget) {
+    public void setBudget(Long budget) {
         this.budget = budget;
     }
 

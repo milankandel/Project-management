@@ -15,6 +15,7 @@ public abstract class SiteController {
     
     protected String activeMenu;
     protected String pageTitle;
+    protected String uri;
     
     @ModelAttribute(value="activeMenu")
     public String getActiveMenu(){
@@ -24,5 +25,9 @@ public abstract class SiteController {
     @ModelAttribute(value = "pageTitle")
     public String getpageTitle(){
        return pageTitle;  
+    }
+    @ModelAttribute(value = "uri")
+    public String geturi(){
+        return uri;
     }
 }
